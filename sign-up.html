@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sukumart — Quick, Simple & Trusted</title>
 
-<title>SukuMart Shop</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@700;800&display=swap" rel="stylesheet" />
 
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-
- <style type="text/tailwindcss">
+  <style type="text/tailwindcss">
     @theme {
       --font-sans: 'Plus Jakarta Sans', sans-serif;
       --font-display: 'Sora', sans-serif;
@@ -49,7 +49,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
   </style>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gray-50 text-gray-800">
 
   <!-- ── TOP BAR ── -->
   <div class="bg-[#002D62] text-white">
@@ -304,228 +304,67 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     </div>
   </nav>
 
+  <!-- SIGNUP MODAL / SECTION -->
+<div class="flex items-center justify-center px-4 py-10">
 
-<!-- MAIN CONTENT -->
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
 
-<section class="max-w-7xl mx-auto px-4 py-10">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-[#002D62] to-[#0055B3] text-white p-6 text-center">
+      <h2 class="text-2xl font-bold">Create Account</h2>
+      <p class="text-white/70 text-sm mt-1">Join Sukumart today</p>
+    </div>
 
-  <div class="grid lg:grid-cols-4 gap-8">
+    <!-- Body -->
+    <div class="p-6 space-y-4">
 
-    <!-- SIDEBAR -->
-    <aside class="lg:block">
-
-      <div class="bg-white rounded-2xl p-6 shadow-sm sticky top-28">
-
-        <h2 class="font-bold text-xl mb-5">
-          Categories
-        </h2>
-
-        <div class="space-y-3">
-
-          <a href="categories.html" class="block hover:text-[#004A90]">
-            Electronics
-          </a>
-
-          <a href="categories.html" class="block hover:text-[#004A90]">
-            Fashion
-          </a>
-
-          <a href="categories.html" class="block hover:text-[#004A90]">
-            Watches
-          </a>
-
-          <a href="categories.html" class="block hover:text-[#004A90]">
-            Shoes
-          </a>
-
-          <a href="categories.html" class="block hover:text-[#004A90]">
-            Gaming
-          </a>
-
-          <a href="categories.html" class="block hover:text-[#004A90]">
-            Sports
-          </a>
-
-        </div>
-
+      <!-- Name -->
+      <div>
+        <label class="text-sm font-semibold text-gray-600">Full Name</label>
+        <input type="text" placeholder="Enter your name"
+          class="w-full mt-1 px-4 py-3 border rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-[#0055B3] outline-none transition" />
       </div>
 
-    </aside>
-
-    <!-- PRODUCTS -->
-    <div class="lg:col-span-3">
-
-      <!-- TOP BAR -->
-      <div class="bg-white rounded-2xl p-4 shadow-sm mb-8 flex flex-col md:flex-row gap-4 justify-between">
-
-        <input
-        type="text"
-        placeholder="Search products..."
-        class="border rounded-xl px-4 py-3 w-full md:w-96">
-
-        <select class="border rounded-xl px-4 py-3">
-          <option>Sort By</option>
-          <option>Newest</option>
-          <option>Price Low to High</option>
-          <option>Price High to Low</option>
-        </select>
-
+      <!-- Email -->
+      <div>
+        <label class="text-sm font-semibold text-gray-600">Email</label>
+        <input type="email" placeholder="Enter your email"
+          class="w-full mt-1 px-4 py-3 border rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-[#0055B3] outline-none transition" />
       </div>
 
-      <!-- SALE BANNER -->
-      <div class="bg-gradient-to-r from-[#004A90] to-[#002D62] rounded-3xl p-8 text-white mb-8">
-
-        <h2 class="text-3xl font-bold">
-          Summer Mega Sale
-        </h2>
-
-        <p class="mt-2 text-blue-100">
-          Up to 50% OFF on selected products.
-        </p>
-
+      <!-- Password -->
+      <div>
+        <label class="text-sm font-semibold text-gray-600">Password</label>
+        <input type="password" placeholder="Create password"
+          class="w-full mt-1 px-4 py-3 border rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-[#0055B3] outline-none transition" />
       </div>
 
-      <!-- PRODUCT GRID -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-
-        <!-- CARD -->
-        <div class="bg-white rounded-2xl overflow-hidden border hover:shadow-xl transition">
-
-          <div class="relative overflow-hidden">
-
-            <img
-            src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600"
-            class="w-full h-64 object-cover hover:scale-105 transition duration-500">
-
-            <span class="absolute top-3 left-3 bg-red-500 text-white text-xs px-3 py-1 rounded-full">
-              SALE
-            </span>
-
-          </div>
-
-          <div class="p-5">
-
-            <h3 class="font-bold text-lg">
-              Nike Running Shoes
-            </h3>
-
-            <div class="text-yellow-400 mt-2">
-              ★★★★★
-              <span class="text-gray-500 text-sm">
-                (120)
-              </span>
-            </div>
-
-            <p class="text-gray-500 text-sm mt-3">
-              Lightweight and comfortable.
-            </p>
-
-            <div class="flex justify-between items-center mt-5">
-
-              <div>
-                <span class="text-xl font-bold text-[#004A90]">
-                  $120
-                </span>
-
-                <span class="text-gray-400 line-through ml-2">
-                  $150
-                </span>
-              </div>
-
-              <button class="bg-[#004A90] text-white px-4 py-2 rounded-xl">
-                Add Cart
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <!-- CARD -->
-        <div class="bg-white rounded-2xl overflow-hidden border hover:shadow-xl transition">
-
-          <img
-          src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600"
-          class="w-full h-64 object-cover">
-
-          <div class="p-5">
-
-            <h3 class="font-bold text-lg">
-              Smart Watch
-            </h3>
-
-            <div class="text-yellow-400 mt-2">
-              ★★★★★
-            </div>
-
-            <p class="text-gray-500 mt-3">
-              Health & fitness tracking.
-            </p>
-
-            <div class="flex justify-between items-center mt-5">
-
-              <span class="text-xl font-bold text-[#004A90]">
-                $180
-              </span>
-
-              <button class="bg-[#004A90] text-white px-4 py-2 rounded-xl">
-                Add Cart
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <!-- CARD -->
-        <div class="bg-white rounded-2xl overflow-hidden border hover:shadow-xl transition">
-
-          <img
-          src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600"
-          class="w-full h-64 object-cover">
-
-          <div class="p-5">
-
-            <h3 class="font-bold text-lg">
-              Headphones
-            </h3>
-
-            <div class="text-yellow-400 mt-2">
-              ★★★★★
-            </div>
-
-            <p class="text-gray-500 mt-3">
-              Premium sound quality.
-            </p>
-
-            <div class="flex justify-between items-center mt-5">
-
-              <span class="text-xl font-bold text-[#004A90]">
-                $99
-              </span>
-
-              <button class="bg-[#004A90] text-white px-4 py-2 rounded-xl">
-                Add Cart
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
+      <!-- Confirm Password -->
+      <div>
+        <label class="text-sm font-semibold text-gray-600">Confirm Password</label>
+        <input type="password" placeholder="Confirm password"
+          class="w-full mt-1 px-4 py-3 border rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-[#0055B3] outline-none transition" />
       </div>
+
+      <!-- Button -->
+      <button
+        class="w-full bg-[#002D62] hover:bg-[#0055B3] text-white py-3 rounded-xl font-semibold transition transform hover:-translate-y-0.5">
+        Create Account
+      </button>
+
+      <!-- Login link -->
+      <p class="text-center text-sm text-gray-500 pt-2">
+        Already have an account?
+        <button  class="text-[#0055B3] font-semibold hover:underline">Login</button>
+      </p>
 
     </div>
 
   </div>
+</div>
 
-</section>
 
-
-<!-- FOOTER -->
+  
 <footer class="bg-gradient-to-b from-[#002D62] to-[#001A3A] text-white mt-16">
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
@@ -648,7 +487,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
   </div>
 </footer>
-
+ 
   <script>
     // ── Mobile menu toggle ──
     const menuToggle = document.getElementById('menuToggle');
@@ -681,10 +520,6 @@ loginModal.addEventListener("click", (e) => {
   }
 });
  
-
-  
-
-
 
     // ── Category dropdown ──
     const catBtn      = document.getElementById('catBtn');
@@ -741,8 +576,10 @@ loginModal.addEventListener("click", (e) => {
         btn.style.borderColor = active ? '' : '#E53935';
       });
     });
-  </script>
 
+  
+
+  </script>
 
 </body>
 </html>
