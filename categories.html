@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Categories — SukuMart</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Sora:wght@700;800&display=swap" rel="stylesheet" />
+
+  <style type="text/tailwindcss">
+    @theme {
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+      --font-display: 'Sora', sans-serif;
+      --color-navy: #002D62;
+      --color-navy-mid: #003D84;
+      --color-navy-bright: #0055B3;
+      --color-accent: #F4C542;
+      --color-brand-red: #E53935;
+    }
+    body { font-family: var(--font-sans); }
+    .font-display { font-family: var(--font-display); }
+
+    .nav-link {
+      @apply relative flex items-center gap-1.5 h-[52px] px-4 text-[13.5px] font-semibold text-white/80 no-underline transition-colors duration-200 hover:text-white;
+    }
+    .nav-link::after {
+      content: '';
+      @apply absolute bottom-0 left-1/2 right-1/2 h-[3px] bg-[#F4C542] rounded-t-sm transition-all duration-200;
+    }
+    .nav-link:hover::after, .nav-link.active::after { @apply left-4 right-4; }
+    .nav-link.active { @apply text-white; }
+
+    .cat-option {
+      @apply flex items-center gap-2.5 w-full px-3.5 py-2 text-[13px] font-medium text-gray-700 hover:bg-blue-50 hover:text-[#002D62] transition-colors rounded-lg cursor-pointer;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+
+   <!-- ── TOP BAR ── -->
+  <div class="bg-[#002D62] text-white">
+    <div class="max-w-7xl mx-auto px-6 h-[38px] flex items-center justify-between text-[12.5px] font-medium relative">
+      <div class="flex items-center gap-5">
+        <a href="contact.html" class="flex items-center gap-1.5 text-white/70 hover:text-[#F4C542] transition-colors no-underline">
+          <i class="fa-solid fa-phone text-[11px]"></i> 9800000000
+        </a>
+        <a href="contact.html" class="hidden sm:flex items-center gap-1.5 text-white/70 hover:text-[#F4C542] transition-colors no-underline">
+          <i class="fa-regular fa-envelope text-[11px]"></i> support@sukumart.com
+        </a>
+      </div>
+      <p class="hidden lg:block absolute left-1/2 -translate-x-1/2 text-[11px] text-white/45 uppercase tracking-widest whitespace-nowrap">
+        Quick · Simple · Trusted Shopping
+      </p>
+      <div class="flex items-center gap-3.5">
+        <a href="#" class="text-white/55 text-[13px] hover:text-[#F4C542] transition-colors no-underline"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="text-white/55 text-[13px] hover:text-[#F4C542] transition-colors no-underline"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="text-white/55 text-[13px] hover:text-[#F4C542] transition-colors no-underline"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="text-white/55 text-[13px] hover:text-[#F4C542] transition-colors no-underline"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── HEADER ── -->
+  <header class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-6">
+
+      <div class="flex items-center gap-5 h-[72px]">
+
+        <!-- Logo -->
+        <a href="index.html" class="shrink-0 no-underline">
+          <img src="https://www.sukumart.com/images/2026/04/new-sukumart-80-even.png" alt="Sukumart" class="h-8 block" />
+        </a>
+
+        <!-- Desktop Search -->
+        <div class="hidden md:flex flex-1 max-w-2xl items-center h-12 bg-gray-50 border-[1.5px] border-gray-200 rounded-full overflow-visible transition-all duration-200 focus-within:border-[#0055B3] focus-within:ring-4 focus-within:ring-blue-500/10 focus-within:bg-white relative">
+
+          <!-- Category dropdown trigger -->
+          <div class="relative h-full shrink-0" id="catDropdownWrap">
+            <button id="catBtn"
+              class="flex items-center gap-2 h-full pl-4 pr-3.5 text-[13px] font-semibold text-gray-600 border-r border-gray-200 bg-transparent hover:text-[#002D62] transition-colors whitespace-nowrap rounded-l-full select-none"
+              aria-haspopup="listbox" aria-expanded="false">
+              <span id="catLabel">All Categories</span>
+              <i id="catChevron" class="fa-solid fa-angle-down text-[10px] text-gray-400 transition-transform duration-200"></i>
+            </button>
+
+            <!-- Dropdown panel -->
+            <div id="catDropdown"
+              class="hidden absolute top-[calc(100%+8px)] left-0 w-56 bg-white border border-gray-200 rounded-2xl shadow-xl z-50 p-1.5 overflow-hidden">
+
+              <!-- Header -->
+              <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 px-3.5 pt-2 pb-1.5">Categories</p>
+
+              <div role="listbox" class="flex flex-col gap-0.5 pt-3">
+              
+                <button class="cat-option" data-cat="Electronics">
+                  <div class="w-6 h-6 rounded-md bg-blue-100 flex items-center justify-center text-[11px] text-blue-700"><i class="fa-solid fa-mobile-screen"></i></div>
+                  <a href="categories.html">Electronics<a>
+                </button>
+                <button class="cat-option" data-cat="Fashion">
+                  <div class="w-6 h-6 rounded-md bg-pink-100 flex items-center justify-center text-[11px] text-pink-700"><i class="fa-solid fa-shirt"></i></div>
+                  <a href="categories.html"> Fashion</a>
+                </button>
+                <button class="cat-option" data-cat="Groceries">
+                  <div class="w-6 h-6 rounded-md bg-green-100 flex items-center justify-center text-[11px] text-green-700"><i class="fa-solid fa-seedling"></i></div>
+                   <a href="categories.html">Groceries</a>
+                </button>
+                <button class="cat-option" data-cat="Home & Living">
+                  <div class="w-6 h-6 rounded-md bg-orange-100 flex items-center justify-center text-[11px] text-orange-700"><i class="fa-solid fa-couch"></i></div>
+                 <a href="categories.html"> Home & Living </a>
+                </button>
+                <button class="cat-option" data-cat="Gaming">
+                  <div class="w-6 h-6 rounded-md bg-purple-100 flex items-center justify-center text-[11px] text-purple-700"><i class="fa-solid fa-gamepad"></i></div>
+                   <a href="categories.html">Gaming</a>
+                </button>
+                <button class="cat-option" data-cat="Sports">
+                  <div class="w-6 h-6 rounded-md bg-teal-100 flex items-center justify-center text-[11px] text-teal-700"><i class="fa-solid fa-dumbbell"></i></div>
+                   <a href="categories.html">Sports</a>
+                </button>
+                <button class="cat-option" data-cat="Health">
+                  <div class="w-6 h-6 rounded-md bg-red-100 flex items-center justify-center text-[11px] text-red-700"><i class="fa-solid fa-heart-pulse"></i></div>
+                   <a href="categories.html"> Health</a>
+                </button>
+                <button class="cat-option" data-cat="Automotive">
+                  <div class="w-6 h-6 rounded-md bg-indigo-100 flex items-center justify-center text-[11px] text-indigo-700"><i class="fa-solid fa-car"></i></div>
+                   <a href="categories.html">Automotive</a>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- /Category dropdown -->
+
+          <input type="text" id="searchInput" placeholder="Search products, brands and more…"
+            class="flex-1 h-full px-4 bg-transparent outline-none text-sm text-gray-800 placeholder-gray-400 font-normal min-w-0" />
+          <button class="flex items-center justify-center w-[46px] h-9 mx-1.5 rounded-full bg-[#002D62] text-white text-sm hover:bg-[#0055B3] transition-colors shrink-0">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-2 ml-auto">
+          <a href="#" class="flex items-center justify-center w-11 h-11 rounded-xl border-[1.5px] border-gray-200 text-gray-700 text-xl hover:border-[#0055B3] hover:text-[#002D62] transition-all no-underline">
+            <i class="fa-regular fa-heart"></i>
+          </a>
+          <a href="cart.html" class="relative flex items-center justify-center w-11 h-11 rounded-xl border-[1.5px] border-gray-200 text-gray-700 text-xl hover:border-[#0055B3] hover:text-[#002D62] transition-all no-underline">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#E53935] text-white text-[10px] font-bold flex items-center justify-center">3</span>
+          </a>
+          <button id="profileBtn"  class="hidden lg:flex items-center gap-2.5 h-11 px-4 rounded-xl border-[1.5px] border-gray-200 text-gray-800 hover:border-[#0055B3] hover:text-[#002D62] hover:bg-blue-50/50 transition-all no-underline">
+            <i class="fa-regular fa-user text-[17px]"></i>
+            <div class="flex flex-col items-start leading-none">
+              <span class="text-[11px] text-gray-400 font-normal">Hello,</span>
+              <span class="text-[13px] font-bold mt-0.5">My Account</span>
+            </div>
+          </button>
+          <button id="menuToggle" class="lg:hidden flex items-center justify-center w-11 h-11 rounded-xl border-[1.5px] border-gray-200 text-gray-700 text-xl hover:border-gray-300 transition-all">
+            <i id="menuIcon" class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Mobile Search -->
+      <div class="md:hidden pb-4">
+        <div class="flex items-center h-11 bg-gray-50 border-[1.5px] border-gray-200 rounded-full overflow-hidden focus-within:border-[#0055B3] focus-within:ring-4 focus-within:ring-blue-500/10">
+          <input type="text" placeholder="Search products…"
+            class="flex-1 h-full px-4 bg-transparent outline-none text-sm text-gray-800 placeholder-gray-400" />
+          <button class="flex items-center justify-center w-10 h-8 mx-1 rounded-full bg-[#002D62] text-white text-sm hover:bg-[#0055B3] transition-colors shrink-0">
+            <i class="fa-solid fa-magnifying-glass text-xs"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+ <div id="loginModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[999] px-4">
+
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden animate-fadeIn">
+
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-[#002D62] to-[#0055B3] p-6 text-white relative">
+      <h2 class="text-2xl font-bold">Welcome Back 👋</h2>
+      <p class="text-white/70 text-sm mt-1">Login to your account</p>
+
+      <!-- close -->
+      <button id="closeLogin"
+        class="absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="p-6 space-y-4">
+
+      <!-- Email -->
+      <div>
+        <label class="text-sm font-semibold text-gray-600">Email</label>
+        <input type="email" placeholder="Enter your email"
+          class="w-full mt-1 px-4 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-[#0055B3] transition" />
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label class="text-sm font-semibold text-gray-600">Password</label>
+        <input type="password" placeholder="Enter your password"
+          class="w-full mt-1 px-4 py-3 border rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-100 focus:border-[#0055B3] transition" />
+      </div>
+
+      <!-- Remember + Forgot -->
+      <div class="flex items-center justify-between text-sm">
+        <label class="flex items-center gap-2 text-gray-600">
+          <input type="checkbox" class="accent-[#0055B3]">
+          Remember me
+        </label>
+
+        <a href="#" class="text-[#0055B3] hover:underline">Forgot password?</a>
+      </div>
+
+      <!-- Button -->
+      <button class="w-full bg-[#002D62] hover:bg-[#0055B3] text-white py-3 rounded-xl font-semibold transition hover:-translate-y-0.5">
+        Login
+      </button>
+
+      <!-- Divider -->
+      <div class="flex items-center gap-3">
+        <div class="flex-1 h-px bg-gray-200"></div>
+        <span class="text-xs text-gray-400">OR</span>
+        <div class="flex-1 h-px bg-gray-200"></div>
+      </div>
+
+      <!-- Social -->
+      <div class="grid grid-cols-2 gap-3">
+        <button class="flex items-center justify-center gap-2 border rounded-xl py-2 hover:bg-gray-50">
+          <i class="fa-brands fa-google text-red-500"></i> Google
+        </button>
+
+        <button class="flex items-center justify-center gap-2 border rounded-xl py-2 hover:bg-gray-50">
+          <i class="fa-brands fa-facebook text-blue-600"></i> Facebook
+        </button>
+      </div>
+
+      <!-- Signup -->
+      <p class="text-center text-sm text-gray-500 mt-2">
+        Don’t have an account?
+        <a href="#" class="text-[#0055B3] font-semibold hover:underline">Sign up</a>
+      </p>
+
+    </div>
+  </div>
+</div>
+
+  <!-- ── MOBILE MENU ── -->
+  <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-gray-100 shadow-lg z-40 relative">
+    <div class="flex items-center gap-2 mx-4 my-3 px-4 py-2.5 bg-amber-50 border border-amber-200 rounded-xl text-[13px] font-bold text-amber-700">
+      <i class="fa-solid fa-bolt text-amber-500"></i> Flash Sale — Up to 60% Off!
+    </div>
+    <nav class="flex flex-col">
+      <a href="index.html" class="flex items-center justify-between px-5 py-3.5 text-sm font-semibold text-gray-800 border-b border-gray-100 hover:bg-gray-50 hover:text-[#002D62] no-underline transition-colors">Home <i class="fa-solid fa-chevron-right text-[11px] text-gray-300"></i></a>
+      <a href="categories.html" class="flex items-center justify-between px-5 py-3.5 text-sm font-semibold text-gray-800 border-b border-gray-100 hover:bg-gray-50 hover:text-[#002D62] no-underline transition-colors">Categories <i class="fa-solid fa-chevron-right text-[11px] text-gray-300"></i></a>
+      <a href="shop.html" class="flex items-center justify-between px-5 py-3.5 text-sm font-semibold text-gray-800 border-b border-gray-100 hover:bg-gray-50 hover:text-[#002D62] no-underline transition-colors">Shop <i class="fa-solid fa-chevron-right text-[11px] text-gray-300"></i></a>
+      <a href="deals.html" class="flex items-center justify-between px-5 py-3.5 text-sm font-semibold text-[#E53935] border-b border-gray-100 hover:bg-red-50 no-underline transition-colors">
+        <span>Deals <span class="ml-2 bg-[#E53935] text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wide">HOT</span></span>
+        <i class="fa-solid fa-chevron-right text-[11px] text-gray-300"></i>
+      </a>
+      <a href="track-order.html" class="flex items-center justify-between px-5 py-3.5 text-sm font-semibold text-gray-800 border-b border-gray-100 hover:bg-gray-50 hover:text-[#002D62] no-underline transition-colors">Track Order <i class="fa-solid fa-chevron-right text-[11px] text-gray-300"></i></a>
+      <a href="about.html" class="flex items-center justify-between px-5 py-3.5 text-sm font-semibold text-gray-800 border-b border-gray-100 hover:bg-gray-50 hover:text-[#002D62] no-underline transition-colors">About <i class="fa-solid fa-chevron-right text-[11px] text-gray-300"></i></a>
+      <a href="contact.html" class="flex items-center justify-between px-5 py-3.5 text-sm font-semibold text-gray-800 hover:bg-gray-50 hover:text-[#002D62] no-underline transition-colors">Contact <i class="fa-solid fa-chevron-right text-[11px] text-gray-300"></i></a>
+    </nav>
+  </div>
+
+  <!-- ── NAV ── -->
+  <nav class="hidden lg:block bg-[#003D84] z-50 top-17 sticky">
+    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <ul class="flex items-center list-none m-0 p-0 gap-0">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="categories.html" class="nav-link">Categories</a></li>
+        <li><a href="shop.html" class="nav-link">Shop</a></li>
+        <li>
+          <a href="deals.html" class="nav-link">Deals
+            <span class="bg-[#E53935] text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wide">HOT</span>
+          </a>
+        </li>
+        <li><a href="track-order.html" class="nav-link">Track Order</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="flex items-center gap-2 text-[13px] font-bold text-[#F4C542] bg-amber-400/10 border border-amber-400/30 rounded-lg px-3.5 py-1.5">
+        <i class="fa-solid fa-bolt text-sm"></i> Flash Sale — Up to 60% Off
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-4 pb-8">
+    <div class="bg-gradient-to-r from-[#002D62] to-[#0055B3] rounded-2xl px-6 sm:px-10 py-8 sm:py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 relative overflow-hidden">
+      <!-- decorative rings -->
+      <div class="absolute -right-10 -top-10 w-64 h-64 rounded-full border-[40px] border-white/5 pointer-events-none"></div>
+      <div class="absolute -right-4 top-10 w-40 h-40 rounded-full border-[24px] border-white/5 pointer-events-none"></div>
+      <div>
+        <p class="text-[#F4C542] text-[11px] font-bold uppercase tracking-widest mb-1.5">Explore</p>
+        <h1 class="font-display text-2xl sm:text-3xl font-extrabold text-white leading-tight">Shop by Category</h1>
+        <p class="text-white/60 text-sm mt-1.5 max-w-md">Browse our full range of products across electronics, fashion, home, health, and more.</p>
+      </div>
+      <div class="flex items-center gap-3 text-sm font-semibold text-white/80 bg-white/10 border border-white/20 rounded-xl px-4 py-2.5 shrink-0">
+        <i class="fa-solid fa-layer-group text-[#F4C542]"></i>
+        12 categories · 10,000+ products
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
+
+    <!-- Section header -->
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="text-xl sm:text-2xl font-bold text-gray-800">All Categories</h2>
+        <p class="text-gray-400 text-sm mt-0.5">Find exactly what you need</p>
+      </div>
+      <!-- View toggle (decorative) -->
+      <div class="flex items-center gap-1 bg-white border border-gray-200 rounded-lg p-1">
+        <button id="gridView" onclick="setView('grid')" class="flex items-center justify-center w-8 h-8 rounded-md bg-[#002D62] text-white text-sm transition-all">
+          <i class="fa-solid fa-grip"></i>
+        </button>
+        <button id="listView" onclick="setView('list')" class="flex items-center justify-center w-8 h-8 rounded-md text-gray-400 hover:bg-gray-100 text-sm transition-all">
+          <i class="fa-solid fa-list"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- CATEGORIES GRID -->
+    <div id="productContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-4 gap-4 sm:gap-5">
+
+      <!-- Electronics -->
+      <a href="#" class="group relative bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 no-underline flex flex-col gap-4 hover:border-blue-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden cursor-pointer">
+        <div class="absolute top-0 right-0 w-28 h-28 rounded-full bg-blue-50 -translate-y-10 translate-x-10 group-hover:bg-blue-100 transition-colors"></div>
+        <div class="relative w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600 text-xl">
+          <i class="fa-solid fa-mobile-screen"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-bold text-gray-800 text-base leading-tight group-hover:text-[#002D62] transition-colors">Electronics</h3>
+          <p class="text-gray-400 text-xs mt-1 leading-relaxed">Phones, laptops, TVs & more</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-semibold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">2,340 items</span>
+          <i class="fa-solid fa-arrow-right text-[11px] text-gray-300 group-hover:text-blue-500 group-hover:translate-x-1 transition-all"></i>
+        </div>
+      </a>
+
+      <!-- Fashion -->
+      <a href="#" class="group relative bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 no-underline flex flex-col gap-4 hover:border-pink-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden cursor-pointer">
+        <div class="absolute top-0 right-0 w-28 h-28 rounded-full bg-pink-50 -translate-y-10 translate-x-10 group-hover:bg-pink-100 transition-colors"></div>
+        <div class="relative w-12 h-12 rounded-xl bg-pink-100 flex items-center justify-center text-pink-600 text-xl">
+          <i class="fa-solid fa-shirt"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-bold text-gray-800 text-base leading-tight group-hover:text-[#002D62] transition-colors">Fashion</h3>
+          <p class="text-gray-400 text-xs mt-1 leading-relaxed">Clothing, shoes & accessories</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-semibold text-pink-600 bg-pink-50 px-2.5 py-1 rounded-full">3,100 items</span>
+          <i class="fa-solid fa-arrow-right text-[11px] text-gray-300 group-hover:text-pink-500 group-hover:translate-x-1 transition-all"></i>
+        </div>
+      </a>
+
+      <!-- Home & Living -->
+      <a href="#" class="group relative bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 no-underline flex flex-col gap-4 hover:border-orange-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden cursor-pointer">
+        <div class="absolute top-0 right-0 w-28 h-28 rounded-full bg-orange-50 -translate-y-10 translate-x-10 group-hover:bg-orange-100 transition-colors"></div>
+        <div class="relative w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600 text-xl">
+          <i class="fa-solid fa-couch"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-bold text-gray-800 text-base leading-tight group-hover:text-[#002D62] transition-colors">Home & Living</h3>
+          <p class="text-gray-400 text-xs mt-1 leading-relaxed">Furniture, décor & kitchen</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-semibold text-orange-600 bg-orange-50 px-2.5 py-1 rounded-full">1,870 items</span>
+          <i class="fa-solid fa-arrow-right text-[11px] text-gray-300 group-hover:text-orange-500 group-hover:translate-x-1 transition-all"></i>
+        </div>
+      </a>
+
+      <!-- Sports -->
+      <a href="#" class="group relative bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 no-underline flex flex-col gap-4 hover:border-teal-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden cursor-pointer">
+        <div class="absolute top-0 right-0 w-28 h-28 rounded-full bg-teal-50 -translate-y-10 translate-x-10 group-hover:bg-teal-100 transition-colors"></div>
+        <div class="relative w-12 h-12 rounded-xl bg-teal-100 flex items-center justify-center text-teal-600 text-xl">
+          <i class="fa-solid fa-dumbbell"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-bold text-gray-800 text-base leading-tight group-hover:text-[#002D62] transition-colors">Sports</h3>
+          <p class="text-gray-400 text-xs mt-1 leading-relaxed">Fitness, outdoor & gear</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-semibold text-teal-600 bg-teal-50 px-2.5 py-1 rounded-full">940 items</span>
+          <i class="fa-solid fa-arrow-right text-[11px] text-gray-300 group-hover:text-teal-500 group-hover:translate-x-1 transition-all"></i>
+        </div>
+      </a>
+
+      <!-- Books -->
+      <a href="#" class="group relative bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 no-underline flex flex-col gap-4 hover:border-amber-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden cursor-pointer">
+        <div class="absolute top-0 right-0 w-28 h-28 rounded-full bg-amber-50 -translate-y-10 translate-x-10 group-hover:bg-amber-100 transition-colors"></div>
+        <div class="relative w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600 text-xl">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-bold text-gray-800 text-base leading-tight group-hover:text-[#002D62] transition-colors">Books</h3>
+          <p class="text-gray-400 text-xs mt-1 leading-relaxed">Fiction, non-fiction & textbooks</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-semibold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full">5,200 items</span>
+          <i class="fa-solid fa-arrow-right text-[11px] text-gray-300 group-hover:text-amber-500 group-hover:translate-x-1 transition-all"></i>
+        </div>
+      </a>
+
+      <!-- Toys -->
+      <a href="#" class="group relative bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 no-underline flex flex-col gap-4 hover:border-violet-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden cursor-pointer">
+        <div class="absolute top-0 right-0 w-28 h-28 rounded-full bg-violet-50 -translate-y-10 translate-x-10 group-hover:bg-violet-100 transition-colors"></div>
+        <div class="relative w-12 h-12 rounded-xl bg-violet-100 flex items-center justify-center text-violet-600 text-xl">
+          <i class="fa-solid fa-puzzle-piece"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-bold text-gray-800 text-base leading-tight group-hover:text-[#002D62] transition-colors">Toys & Games</h3>
+          <p class="text-gray-400 text-xs mt-1 leading-relaxed">Kids toys, board games & more</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-semibold text-violet-600 bg-violet-50 px-2.5 py-1 rounded-full">780 items</span>
+          <i class="fa-solid fa-arrow-right text-[11px] text-gray-300 group-hover:text-violet-500 group-hover:translate-x-1 transition-all"></i>
+        </div>
+      </a>
+
+      <!-- Beauty -->
+      <a href="#" class="group relative bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 no-underline flex flex-col gap-4 hover:border-rose-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden cursor-pointer">
+        <div class="absolute top-0 right-0 w-28 h-28 rounded-full bg-rose-50 -translate-y-10 translate-x-10 group-hover:bg-rose-100 transition-colors"></div>
+        <div class="relative w-12 h-12 rounded-xl bg-rose-100 flex items-center justify-center text-rose-600 text-xl">
+          <i class="fa-solid fa-spa"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-bold text-gray-800 text-base leading-tight group-hover:text-[#002D62] transition-colors">Beauty</h3>
+          <p class="text-gray-400 text-xs mt-1 leading-relaxed">Skincare, makeup & wellness</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-semibold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full">1,150 items</span>
+          <i class="fa-solid fa-arrow-right text-[11px] text-gray-300 group-hover:text-rose-500 group-hover:translate-x-1 transition-all"></i>
+        </div>
+      </a>
+
+      <!-- Groceries -->
+      <a href="#" class="group relative bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 no-underline flex flex-col gap-4 hover:border-green-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden cursor-pointer">
+        <div class="absolute top-0 right-0 w-28 h-28 rounded-full bg-green-50 -translate-y-10 translate-x-10 group-hover:bg-green-100 transition-colors"></div>
+        <div class="relative w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center text-green-600 text-xl">
+          <i class="fa-solid fa-seedling"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-bold text-gray-800 text-base leading-tight group-hover:text-[#002D62] transition-colors">Groceries</h3>
+          <p class="text-gray-400 text-xs mt-1 leading-relaxed">Fresh produce, pantry & snacks</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-semibold text-green-600 bg-green-50 px-2.5 py-1 rounded-full">4,600 items</span>
+          <i class="fa-solid fa-arrow-right text-[11px] text-gray-300 group-hover:text-green-500 group-hover:translate-x-1 transition-all"></i>
+        </div>
+      </a>
+
+      <!-- Gaming -->
+      <a href="#" class="group relative bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 no-underline flex flex-col gap-4 hover:border-purple-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden cursor-pointer">
+        <div class="absolute top-0 right-0 w-28 h-28 rounded-full bg-purple-50 -translate-y-10 translate-x-10 group-hover:bg-purple-100 transition-colors"></div>
+        <div class="relative w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center text-purple-600 text-xl">
+          <i class="fa-solid fa-gamepad"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-bold text-gray-800 text-base leading-tight group-hover:text-[#002D62] transition-colors">Gaming</h3>
+          <p class="text-gray-400 text-xs mt-1 leading-relaxed">Consoles, games & peripherals</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-semibold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full">630 items</span>
+          <i class="fa-solid fa-arrow-right text-[11px] text-gray-300 group-hover:text-purple-500 group-hover:translate-x-1 transition-all"></i>
+        </div>
+      </a>
+
+      <!-- Health -->
+      <a href="#" class="group relative bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 no-underline flex flex-col gap-4 hover:border-red-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden cursor-pointer">
+        <div class="absolute top-0 right-0 w-28 h-28 rounded-full bg-red-50 -translate-y-10 translate-x-10 group-hover:bg-red-100 transition-colors"></div>
+        <div class="relative w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center text-red-600 text-xl">
+          <i class="fa-solid fa-heart-pulse"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-bold text-gray-800 text-base leading-tight group-hover:text-[#002D62] transition-colors">Health</h3>
+          <p class="text-gray-400 text-xs mt-1 leading-relaxed">Vitamins, medical & personal care</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-semibold text-red-600 bg-red-50 px-2.5 py-1 rounded-full">1,020 items</span>
+          <i class="fa-solid fa-arrow-right text-[11px] text-gray-300 group-hover:text-red-500 group-hover:translate-x-1 transition-all"></i>
+        </div>
+      </a>
+
+      <!-- Automotive -->
+      <a href="#" class="group relative bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 no-underline flex flex-col gap-4 hover:border-indigo-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden cursor-pointer">
+        <div class="absolute top-0 right-0 w-28 h-28 rounded-full bg-indigo-50 -translate-y-10 translate-x-10 group-hover:bg-indigo-100 transition-colors"></div>
+        <div class="relative w-12 h-12 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-600 text-xl">
+          <i class="fa-solid fa-car"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-bold text-gray-800 text-base leading-tight group-hover:text-[#002D62] transition-colors">Automotive</h3>
+          <p class="text-gray-400 text-xs mt-1 leading-relaxed">Parts, tools & car accessories</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">490 items</span>
+          <i class="fa-solid fa-arrow-right text-[11px] text-gray-300 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all"></i>
+        </div>
+      </a>
+
+      <!-- Office & Stationery -->
+      <a href="#" class="group relative bg-white border border-gray-100 rounded-2xl p-5 sm:p-6 no-underline flex flex-col gap-4 hover:border-sky-200 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 overflow-hidden cursor-pointer">
+        <div class="absolute top-0 right-0 w-28 h-28 rounded-full bg-sky-50 -translate-y-10 translate-x-10 group-hover:bg-sky-100 transition-colors"></div>
+        <div class="relative w-12 h-12 rounded-xl bg-sky-100 flex items-center justify-center text-sky-600 text-xl">
+          <i class="fa-solid fa-briefcase"></i>
+        </div>
+        <div class="flex-1">
+          <h3 class="font-bold text-gray-800 text-base leading-tight group-hover:text-[#002D62] transition-colors">Office & Stationery</h3>
+          <p class="text-gray-400 text-xs mt-1 leading-relaxed">Desks, chairs, supplies & printing</p>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-semibold text-sky-600 bg-sky-50 px-2.5 py-1 rounded-full">870 items</span>
+          <i class="fa-solid fa-arrow-right text-[11px] text-gray-300 group-hover:text-sky-500 group-hover:translate-x-1 transition-all"></i>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- PROMO BANNER -->
+    <div class="mt-10 bg-[#F4C542] rounded-2xl px-6 sm:px-10 py-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative overflow-hidden">
+      <div class="absolute -left-6 -bottom-6 w-32 h-32 rounded-full bg-black/5 pointer-events-none"></div>
+      <div>
+        <p class="text-[#002D62] font-extrabold text-lg sm:text-xl font-display leading-tight">New to SukuMart?</p>
+        <p class="text-[#002D62]/70 text-sm mt-1">Sign up and get <strong class="text-[#002D62]">15% off</strong> your first order across all categories.</p>
+      </div>
+      <a href="#" class="shrink-0 inline-flex items-center gap-2 bg-[#002D62] text-white text-sm font-bold px-5 py-2.5 rounded-xl hover:bg-[#003D84] transition-colors no-underline">
+        Create Account <i class="fa-solid fa-arrow-right text-xs"></i>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-gradient-to-b from-[#002D62] to-[#001A3A] text-white mt-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
+        <!-- Brand -->
+        <div class="space-y-4">
+          <h2 class="text-2xl font-extrabold tracking-wide">Suku<span class="text-[#4DA3FF]">Mart</span></h2>
+          <p class="text-sm text-gray-300 leading-relaxed">Your one-stop online shopping destination for electronics, fashion, and daily essentials.</p>
+          <div class="text-sm text-gray-300 space-y-1">
+            <p class="font-semibold text-white">Our Address</p>
+            <p>SukuMart Pvt. Ltd.</p>
+            <p>Kathmandu, Nepal</p>
+            <p>Email: support@sukumart.com</p>
+            <p>Phone: +977-98XXXXXXXX</p>
+          </div>
+          <div class="flex gap-3 pt-2">
+            <a href="#" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#4DA3FF] transition"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+            <a href="#" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#4DA3FF] transition"><i class="fa-brands fa-instagram text-sm"></i></a>
+            <a href="#" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#4DA3FF] transition"><i class="fa-brands fa-x-twitter text-sm"></i></a>
+            <a href="#" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-[#4DA3FF] transition"><i class="fa-brands fa-youtube text-sm"></i></a>
+          </div>
+        </div>
+        <!-- Quick Links -->
+        <div>
+          <h3 class="text-sm font-bold uppercase tracking-wider mb-4">Quick Links</h3>
+          <ul class="space-y-3 text-sm text-gray-300">
+            <li><a href="#" class="hover:text-white hover:pl-1 transition no-underline">Home</a></li>
+            <li><a href="#" class="hover:text-white hover:pl-1 transition no-underline">Shop</a></li>
+            <li><a href="#" class="hover:text-white hover:pl-1 transition no-underline">About Us</a></li>
+            <li><a href="#" class="hover:text-white hover:pl-1 transition no-underline">Contact</a></li>
+            <li><a href="#" class="hover:text-white hover:pl-1 transition no-underline">FAQs</a></li>
+          </ul>
+        </div>
+        <!-- Categories -->
+        <div>
+          <h3 class="text-sm font-bold uppercase tracking-wider mb-4">Categories</h3>
+          <ul class="space-y-3 text-sm text-gray-300">
+            <li><a href="#" class="hover:text-white hover:pl-1 transition no-underline">Electronics</a></li>
+            <li><a href="#" class="hover:text-white hover:pl-1 transition no-underline">Fashion</a></li>
+            <li><a href="#" class="hover:text-white hover:pl-1 transition no-underline">Home & Living</a></li>
+            <li><a href="#" class="hover:text-white hover:pl-1 transition no-underline">Sports</a></li>
+            <li><a href="#" class="hover:text-white hover:pl-1 transition no-underline">Books</a></li>
+          </ul>
+        </div>
+        <!-- Newsletter -->
+        <div class="sm:col-span-2 lg:col-span-1">
+          <h3 class="text-sm font-bold uppercase tracking-wider mb-4">Newsletter</h3>
+          <p class="text-sm text-gray-300 mb-4">Get updates, offers & discounts directly in your inbox.</p>
+          <div class="space-y-2.5">
+            <input type="email" placeholder="Enter your email" class="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 px-4 py-2.5 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#4DA3FF]" />
+            <button class="w-full bg-[#4DA3FF] hover:bg-blue-400 transition py-2.5 rounded-xl font-semibold text-sm">Subscribe</button>
+          </div>
+        </div>
+        <!-- Support -->
+        <div>
+          <h3 class="text-sm font-bold uppercase tracking-wider mb-4">Support</h3>
+          <ul class="space-y-3 text-sm text-gray-300">
+            <li><a href="#" class="hover:text-white hover:pl-1 transition no-underline">Help Center</a></li>
+            <li><a href="#" class="hover:text-white hover:pl-1 transition no-underline">Shipping Info</a></li>
+            <li><a href="#" class="hover:text-white hover:pl-1 transition no-underline">Returns</a></li>
+            <li><a href="#" class="hover:text-white hover:pl-1 transition no-underline">Order Tracking</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/10 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 gap-4">
+        <p class="text-center md:text-left">© 2026 SukuMart. All rights reserved.</p>
+        <div class="flex flex-wrap justify-center gap-5">
+          <a href="#" class="hover:text-white transition no-underline">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition no-underline">Terms</a>
+          <a href="#" class="hover:text-white transition no-underline">Support</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  
+  <script>
+    // ── Mobile menu toggle ──
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuIcon   = document.getElementById('menuIcon');
+    menuToggle.addEventListener('click', () => {
+      const hidden = mobileMenu.classList.toggle('hidden');
+      menuIcon.className = hidden ? 'fa-solid fa-bars' : 'fa-solid fa-xmark';
+    });
+
+    const profileBtn = document.getElementById("profileBtn");
+const loginModal = document.getElementById("loginModal");
+const closeLogin = document.getElementById("closeLogin");
+
+// open modal
+profileBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  loginModal.classList.remove("hidden");
+});
+
+// close button
+closeLogin.addEventListener("click", () => {
+  loginModal.classList.add("hidden");
+});
+
+// outside click close
+loginModal.addEventListener("click", (e) => {
+  if (e.target === loginModal) {
+    loginModal.classList.add("hidden");
+  }
+});
+
+    // ── Category dropdown ──
+    const catBtn      = document.getElementById('catBtn');
+    const catDropdown = document.getElementById('catDropdown');
+    const catLabel    = document.getElementById('catLabel');
+    const catChevron  = document.getElementById('catChevron');
+    const catOptions  = document.querySelectorAll('.cat-option');
+
+    function openDropdown() {
+      catDropdown.classList.remove('hidden');
+      catBtn.setAttribute('aria-expanded', 'true');
+      catChevron.style.transform = 'rotate(180deg)';
+    }
+    function closeDropdown() {
+      catDropdown.classList.add('hidden');
+      catBtn.setAttribute('aria-expanded', 'false');
+      catChevron.style.transform = 'rotate(0deg)';
+    }
+
+    catBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      catDropdown.classList.contains('hidden') ? openDropdown() : closeDropdown();
+    });
+
+    // Select a category
+    catOptions.forEach(opt => {
+      opt.addEventListener('click', () => {
+        catOptions.forEach(o => o.classList.remove('active-cat', 'bg-blue-50', 'text-[#002D62]', 'font-semibold'));
+        opt.classList.add('active-cat', 'bg-blue-50', 'text-[#002D62]', 'font-semibold');
+        catLabel.textContent = opt.dataset.cat;
+        closeDropdown();
+        document.getElementById('searchInput').focus();
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!document.getElementById('catDropdownWrap').contains(e.target)) closeDropdown();
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDropdown();
+    });
+
+    // ── Wishlist heart toggle ──
+    document.querySelectorAll('.wish-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const i = btn.querySelector('i');
+        const active = i.classList.contains('fa-solid');
+        i.className = active ? 'fa-regular fa-heart' : 'fa-solid fa-heart';
+        btn.style.color = active ? '' : '#E53935';
+        btn.style.borderColor = active ? '' : '#E53935';
+      });
+    });
+  
+    const container = document.getElementById("productContainer");
+const gridBtn = document.getElementById("gridView");
+const listBtn = document.getElementById("listView");
+
+function setView(type) {
+
+  if (type === "grid") {
+    container.className = "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4";
+
+    gridBtn.classList.add("bg-[#002D62]", "text-white");
+    gridBtn.classList.remove("text-gray-400");
+
+    listBtn.classList.remove("bg-[#002D62]", "text-white");
+    listBtn.classList.add("text-gray-400");
+  }
+
+  if (type === "list") {
+    container.className = "flex flex-col gap-4";
+
+    listBtn.classList.add("bg-[#002D62]", "text-white");
+    listBtn.classList.remove("text-gray-400");
+
+    gridBtn.classList.remove("bg-[#002D62]", "text-white");
+    gridBtn.classList.add("text-gray-400");
+  }
+}
+
+  </script>
+
+
+</body>
+</html>
